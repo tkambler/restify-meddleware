@@ -23,7 +23,7 @@ module.exports = (server, meddleware) => {
         .orderBy(['priority', 'desc'])
         .forEach((row) => {
             let mod = prequire(row.module.name);
-            server.use(mod.apply(undefined, row.module.arguments));
+            server.use(row.module.method ? mod[row.module.method].apply(undefined, row.module.arguments) : mod.apply(undefined, row.module.arguments));
         });
 
 };
